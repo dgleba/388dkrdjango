@@ -1,0 +1,55 @@
+version: '3.6'
+
+services:
+
+  djangodev:
+    build:
+      context: ./docker/django
+      dockerfile: Dockerfile-test-ummask
+    # user: "${uiddkr}:${giddkr}"
+    command: umask 0002; python3 manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/myproject
+    ports:
+      - "6046:8000"
+    depends_on:
+      - dbdjango
+    # environment:
+      # DJANGO_SECRET_KEY: 1234
+      # SECRET_KEY: 1234
+      # MYSQL_ROOT_PASSWORD: root
+    env_file:
+      - .env
+    networks:
+      - one      
+
+  dbdjango:
+    image: mysql:5.7.22
+    restart: always
+    # container_name: mysqlpython
+    env_file:
+      - .env
+    # environment:
+      # MYSQL_ROOT_PASSWORD: root
+      # MYSQL_DATABASE: test
+      # MYSQL_USER: dev
+      # MYSQL_PASSWORD: dev
+    ports:
+      - "6047:3306"
+    volumes:
+      - ../data/mysql382dev/:/var/lib/mysql/
+    networks:
+      - one      
+
+  adminer:
+    image: adminer:4.6
+    restart: always
+    ports:
+      - "6048:8080"
+      
+      
+networks:
+  one:
+    name: one
+      external:true
+  
