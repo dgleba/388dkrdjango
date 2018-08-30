@@ -1,10 +1,11 @@
 
-# One liners and simple stuff may be here. See sh folder for scripts.
+# One liners and simple stuff may be here in this makefile. See sc folder for scripts.
 # run scripts from project folder like this --  sc/cl
 
 # run system with umask test dockerfile
+# I can't seem to get writable group permissions 2018-08-27_Mon_21.28-PM
 umtest:
-	docker-compose  -f docker-compose-devtest.yml  run djangodev  django-admin.py startproject myproject .
+	docker-compose  -f docker-compose.devtest.yml  run djangodev  django-admin.py startproject myproject .
 
   
 # shell in django
@@ -29,6 +30,7 @@ dkv:
 	docker --version
 	docker-compose -version
 
+  
 # fix permissions. make them group writable so www-data group can manage the files. move, delete, etc..  
 perm:
 	docker-compose run djangodev sh sc/fixpermsh

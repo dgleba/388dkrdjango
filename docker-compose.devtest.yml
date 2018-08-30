@@ -5,7 +5,7 @@ services:
   djangodev:
     build:
       context: ./docker/django
-      dockerfile: Dockerfile-test-ummask
+      dockerfile: Dockerfile-test-umask
     # user: "${uiddkr}:${giddkr}"
     command: umask 0002; python3 manage.py runserver 0.0.0.0:8000
     volumes:
