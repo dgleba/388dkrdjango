@@ -14,7 +14,12 @@ cd
 mkdir dkr 
 cd dkr
 
-git clone 
+git clone https://github.com/dgleba/dkr382r-django.git
+cd dkr382r-django
+
+docker-compose up
+
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## build
@@ -131,6 +136,10 @@ class Question(models.Model):
     pub_date = models.DateTimeField('date published')
 
     
+## visit site in browser in development.
+
+http://pmdsdata4:6046/admin/
+
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -150,6 +159,12 @@ docker-compose run djangodev python manage.py collectstatic
 ## run production..
 
 docker-compose -f docker-compose.prod.yml up
+
+
+## visit site in browser in development.
+
+http://pmdsdata4:6041/admin/
+
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
