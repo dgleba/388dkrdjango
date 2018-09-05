@@ -1,0 +1,102 @@
+
+ 
+purpose:
+  log of notes for this project.
+
+
+
+
+1.
+
+see file at 
+C:\n\Dropbox\csd\0-csd\dkr\dkr382django\382p-dkr382p-hugob.txt
+it may be newer.
+
+
+
+3.
+see also..
+https://github.com/ruddra/docker-django
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Title:  .
+-----------------------2018-07-20_Fri_15.33-PM
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Title:  .
+-----------------------2018-08-24[Aug-Fri]15-39PM
+
+sftp://albe@pmdsdata4/srv/dkr/dkr382django2t
+
+noneed..
+docker-compose -f docker-compose.yml run djangodev django-admin.py startproject myproject .
+
+docker-compose build
+
+
+
+
+sudo rm -r myproject  manage.py db.sqlite3
+
+docker ps 
+docker ps -a
+docker images
+docker volume ls 
+docker --version
+docker-compose -version
+
+
+# remove docker containers exited
+docker rm $(docker ps -qa --no-trunc --filter "status=exited")
+#
+# remove tagged <none>
+docker rmi $(docker images | grep "^<none>" | awk '{ print $3 }')
+
+docker rmi dkr382django2t_djangodev
+
+
+
+
+
+docker-compose build  --force-rm 
+
+docker-compose up --build  --force-recreate  
+
+docker-compose run  djangodev /bin/bash
+
+
+
+
+# didn't work.. umask not found..
+# docker-compose run djangodev  umask 0002 && django-admin.py startproject myproject .
+
+
+docker-compose run djangodev   django-admin.py startproject myproject .
+
+
+
+docker-compose  run djangodev django-admin.py  startapp poll2
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+
+
+
+
+
+
+=
+

@@ -1,16 +1,4 @@
 
-
-
-Also see newer file at:  C:\n\Dropbox\csd\0-csd\dkr\dkr382django\382p-dkr382p-hugob.txt
-
-
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Title:  .
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
 1.
 
 see file at 
@@ -40,14 +28,11 @@ Title:  .
 
 pdata4
 
+ref: 
+  https://github.com/hugobrilhante/docker-django-gunicorn-nginx-postgres
 
-https://github.com/hugobrilhante/docker-django-gunicorn-nginx-postgres
-https://github.com/hugobrilhante/docker-django-gunicorn-nginx-postgres
+also see raindrop
 
-looks good.
-see raindrop
-
-2018-07-20_Fri_14.xx-PM
 
 cd /srv/dkr
 git clone https://github.com/hugobrilhante/docker-django-gunicorn-nginx-postgres.git p382dkr 
@@ -61,17 +46,14 @@ https://stackoverflow.com/questions/29580798/docker-compose-environment-variable
 https://hub.docker.com/_/postgres/   -- search default
 I made .env.
 
-
 sudo chown -R $USER:$USER .
 
-# 2018-07-20_Fri_14.54-PM
 docker-compose up --build --force-recreate
 
 in.. settings.py
   ALLOWED_HOSTS = ['*']
 
 docker-compose up 
-
 
 
 
@@ -139,7 +121,7 @@ django-admin.py startproject wsite
 Title:  .
 -----------------------2018-07-22[Jul-Sun]10-27AM
 
-rearrange - the files in to folders --  branch
+reorg - the files in to folders --  branch
 
 
  1156  git push --all origin
@@ -327,6 +309,8 @@ Starting p382dkr_db_1 ... done
 CommandError: /myproject/manage.py already exists, overlaying a project or app into an existing directory won't replace conflicting files
 albe@pmdsdata4:/srv/dkr/p382dkr/djproj3$ 
 
+
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -433,6 +417,7 @@ Title:  .
 
 
 yes
+
 docker-compose  -f docker-compose-dev.yml run  web  django-admin.py version 
 docker-compose  -f docker-compose.yml run   django  django-admin.py version 
 
@@ -559,7 +544,8 @@ Title:  .
 -----------------------2018-08-07[Aug-Tue]19-59PM
 
 change compose file name. 
-refactor.
+
+reorg.
 
 https://github.com/douglasmiranda/django-admin-bootstrap/tree/0.3.7.1/
 
@@ -571,7 +557,8 @@ docker-compose run djangodev python3 manage.py migrate
 yes.
   docker-compose run djangodev python manage.py  collectstatic
 
-  no
+  
+no
   docker-compose run djangodev django-admin.py  collectstatic
 
 
@@ -745,14 +732,14 @@ docker-compose build
 
 
 sudo rm -r myproject  manage.py db.sqlite3
-#
+
 docker ps 
 docker ps -a
 docker images
 docker volume ls 
 docker --version
 docker-compose -version
-#
+
 
 # remove docker containers exited
 docker rm $(docker ps -qa --no-trunc --filter "status=exited")
@@ -795,6 +782,12 @@ docker-compose  run djangodev django-admin.py  startapp poll2
 Title:  .
 -----------------------2018-08-25[Aug-Sat]23-13PM
 
+docker-compose up
+docker-compose -f docker-compose.devtest.yml up 
+
+docker-compose -f docker-compose.devtest.yml run djangodev  /bin/bash 
+
+
 djangodev_1  | /docker-entrypoint.sh: line 3: exec: umask: not found
 
 
@@ -807,10 +800,7 @@ djangodev_1  | /docker-entrypoint.sh: line 3: exec: umask: not found
 
 
 
-=
-=
-=
 
 
-
+=
 

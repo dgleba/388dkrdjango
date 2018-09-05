@@ -13,11 +13,11 @@ services:
       - one      
 
   django:
-    build: .
+    build: ./docker/django
     image: myproject
     command: gunicorn myproject.wsgi -c ./docker/gunicorn/gunicorn.py -b 0.0.0.0:8000
-    depends_on:
-      - postgresdjango
+    # depends_on:
+      # - postgresdjango
     volumes:
       - .:/myproject
     ports:
@@ -25,12 +25,12 @@ services:
     networks:
       - one      
 
-  postgresdjango:
-    image: postgres
-    env_file:
-      - .env
-    networks:
-      - one      
+  # postgresdjango:
+    # image: postgres
+    # env_file:
+      # - .env
+    # networks:
+      # - one      
 
 networks:
   one:

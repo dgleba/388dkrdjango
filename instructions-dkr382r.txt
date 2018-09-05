@@ -1,0 +1,221 @@
+
+purpose:
+  latest instructions 
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+See Makefile as well.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+cd
+mkdir dkr 
+cd dkr
+
+git clone 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+## build
+
+sftp://albe@pmdsdata4/srv/dkr/dkr382django2t
+
+
+docker-compose build
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+## clean
+
+
+sudo rm -r myproject  manage.py db.sqlite3
+
+docker ps 
+docker ps -a
+docker images
+docker volume ls 
+docker --version
+docker-compose -version
+
+
+# remove docker containers exited
+docker rm $(docker ps -qa --no-trunc --filter "status=exited")
+#
+# remove tagged <none>
+docker rmi $(docker images | grep "^<none>" | awk '{ print $3 }')
+
+docker rmi dkr382django2t_djangodev
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+docker-compose build  --force-rm 
+
+or
+
+docker-compose up --build  --force-recreate  
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+## Bash in container
+
+docker-compose run  djangodev /bin/bash
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+## create project and app to test..
+
+docker-compose  run djangodev django-admin.py   version 
+
+docker-compose run djangodev   django-admin.py startproject myproject .
+
+
+
+docker-compose  run djangodev django-admin.py  startapp pollapp
+
+docker-compose run djangodev python manage.py makemigrations
+docker-compose run djangodev python manage.py migrate
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+## edit settings.py
+
+INSTALLED_APPS = (
+  ...
+    'django.contrib.staticfiles',
+    'pollapp',
+)
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+albe@pmdsdata4:/srv/dkr/dkr382r-django$     docker-compose run djangodev python manage.py createsuperuser
+Starting dkr382r-django_dbdjango_1 ... done
+Username (leave blank to use 'root'):
+Email address: dgleba@gmail.com
+Password:
+Password (again):
+Superuser created successfully.
+albe@pmdsdata4:/srv/dkr/dkr382r-django$
+
+root  pw:a
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+## edit 
+
+    sftp://albe@pmdsdata4/srv/dkr/dkr382q-django/poll2/admin.py
+
+# Register your models here.
+BOOTSTRAP_ADMIN_SIDEBAR_MENU = False
+from pollapp.models import Question
+admin.site.register(Question)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# edit
+  models.py
+  
+# Create your models here.
+class Question(models.Model):
+    question_text = models.CharField(max_length=200)
+    pub_date = models.DateTimeField('date published')
+
+    
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+## static files for production..
+
+add in settings.py
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
+docker-compose run djangodev python manage.py collectstatic
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+## run production..
+
+docker-compose -f docker-compose.prod.yml up
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+## permissions.
+
+Note that startproject creates files with group permissions of r--
+The group cannot write to the files.
+
+This has nothing to do with Docker. 
+Try it on a fresh system with django installed natively in ubuntu and you will see the same result.
+
+
+That is the purpose of `Make perm`
+
+See the Makefile for this code.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+## twitter bootstrap styling
+
+
+req...txt
+bootstrap-admin
+
+https://github.com/douglasmiranda/django-admin-bootstrap/tree/0.3.7.1
+
+
+settings.py  -- apps....
+'bootstrap_admin', # always before django.contrib.admin
+
+
+Stop compose 
+
+make dkcl
+
+docker-compose -f docker-compose.prod.yml up --build  --force-recreate  
+
+
+docker-compose run djangodev python manage.py collectstatic
+
+for production I did:
+  `docker-compose -f docker-compose.prod.yml run django python manage.py collectstatic`
+
+
+
+ctrl-f5 to get fresh page - rebuild browser cache.
+
+
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+
+
+
+
+
+
+=
+

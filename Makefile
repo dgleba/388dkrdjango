@@ -4,15 +4,19 @@
 
 # run system with umask test dockerfile
 # I can't seem to get writable group permissions 2018-08-27_Mon_21.28-PM
-umtest:
+#
+umasktest:
 	docker-compose  -f docker-compose.devtest.yml  run djangodev  django-admin.py startproject myproject .
 
   
 # shell in django
+#
 djsh:
 	docker-compose run djangodev /bin/bash
 
+
 # clean docker containers 
+#
 dkcl:   
 	docker ps 
 	docker ps -a
@@ -26,22 +30,30 @@ dkcl:
 	# remove tagged <none> 
 	-docker rmi $$(docker images | grep "^<none>" | awk '{ print $3 }') 
 
+#
 dkv: 
 	docker --version
 	docker-compose -version
 
   
-# fix permissions. make them group writable so www-data group can manage the files. move, delete, etc..  
 perm:
+# fix permissions. make them group writable so www-data group can manage the files. move, delete, etc..  
 	docker-compose run djangodev sh sc/fixpermsh
-  
+
+    
 # having trouble setting env variable, but do I need it?  
+#
 perm2:  
 	docker-compose run djangodev \
-	 bash -c export fold=/myproject; chmod -R g+rws,o-w  $${fold}
+	bash -c "export fold=/myproject; chmod -R g+rws,o-w  $${fold}"
 
+  
+recreate:  
+	docker-compose -f docker-compose.prod.yml up --build  --force-recreate  
 
+ 
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # https://github.com/docker/compose/issues/2033 docker compose command line run sh multiple commands in one line
 # $ requires escaping with $, so, $$
