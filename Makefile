@@ -11,13 +11,13 @@ umasktest:
   
 # shell in django
 #
-djsh:
+djbash:
 	docker-compose run djangodev /bin/bash
 
 
 # clean docker containers 
 #
-dkcl:   
+dclean:   
 	docker ps 
 	docker ps -a
 	docker images
@@ -48,11 +48,20 @@ perm2:
 	bash -c "export fold=/myproject; chmod -R g+rws,o-w  $${fold}"
 
   
-recreate:  
+recreatep:  
+# recreate for production...
 	docker-compose -f docker-compose.prod.yml up --build  --force-recreate  
 
+  
+recreated:  
+# dev recreate build force
+	docker-compose  up --build  --force-recreate  
  
+up:  
+# dev recreate build force
+	docker-compose  up 
 
+  
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # https://github.com/docker/compose/issues/2033 docker compose command line run sh multiple commands in one line
